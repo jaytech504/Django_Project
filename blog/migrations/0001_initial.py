@@ -2,13 +2,15 @@
 
 from django.db import migrations, models
 import django.utils.timezone
+import django.db.models.deletion
+from django.conf import settings
 
 
 class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
+    dependencies = [migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
@@ -18,7 +20,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(max_length=100)),
                 ('content', models.TextField()),
-                ('date_posted', models.DateTimeField(default=django.utils.timezone.now)),
+                ('date_posted', models.DateTimeField(default=django.utils.timezone.now)), ('author', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL))
             ],
         ),
     ]
